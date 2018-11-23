@@ -35,7 +35,7 @@ compileJava {
 
 dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
-    implementation 'commons-codec:commons-codec:1.11'
+    compileOnly group: 'com.google.guava', name: 'guava', version: '23.5-android'
     testImplementation 'org.bouncycastle:bcprov-jdk15on:1.59'
     testImplementation 'junit:junit:4.12'
     testImplementation 'net.jodah:concurrentunit:0.4.3'

@@ -6,9 +6,9 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.Header;
 import com.auth0.jwt.interfaces.Payload;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.StringUtils;
+import com.google.common.io.BaseEncoding;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +29,9 @@ final class JWTDecoder implements DecodedJWT {
         String headerJson;
         String payloadJson;
         try {
-            headerJson = StringUtils.newStringUtf8(Base64.decodeBase64(parts[0]));
-            payloadJson = StringUtils.newStringUtf8(Base64.decodeBase64(parts[1]));
-        } catch (NullPointerException e) {
+            headerJson = new String(BaseEncoding.base64().decode(parts[0]), "UTF-8");
+            payloadJson = new String(BaseEncoding.base64().decode(parts[1]), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
             throw new JWTDecodeException("The UTF-8 Charset isn't initialized.", e);
         }
         header = converter.parseHeader(headerJson);
